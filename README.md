@@ -1,61 +1,67 @@
 # ReasonReact Template & Examples
 
-This is:
-- A template for your new ReasonReact project.
-- A collection of thin examples illustrating ReasonReact usage.
-- Extra helper documentation for ReasonReact (full ReasonReact docs [here](https://reasonml.github.io/reason-react/)).
+## Setup Project
 
-`src` contains 4 sub-folders, each an independent, self-contained ReasonReact example. Feel free to delete any of them and shape this into your project! This template's more malleable than you might be used to =).
+Dependencies have been installed with `pnpm`.
 
-The point of this template and examples is to let you understand and personally tweak the entirely of it. We **don't** give you an opaque, elaborate mega build setup just to put some boxes on the screen. It strikes to stay transparent, learnable, and simple. You're encouraged to read every file; it's a great feeling, having the full picture of what you're using and being able to touch any part.
+```sh
+pnmp i bs-webapi wonka
+```
 
-## Run
+Add new deps to `bsconfig.json`:
+
+```json
+  "bs-dependencies": [
+    "wonka",
+    "reason-react",
+    "bs-webapi"
+  ],
+```
+
+## Run Project
 
 ```sh
 npm install
-npm run server
-# in a new tab
 npm start
 ```
 
-Open a new web page to `http://localhost:8000/`. Change any `.re` file in `src` to see the page auto-reload. **You don't need any bundler when you're developing**!
-
-**How come we don't need any bundler during development**? We highly encourage you to open up `index.html` to check for yourself!
-
-# Features Used
-
-|                           | Blinking Greeting | Reducer from ReactJS Docs | Fetch Dog Pictures | Reason Using JS Using Reason |
-|---------------------------|-------------------|---------------------------|--------------------|------------------------------|
-| No props                  |                   | ✓                         |                    |                              |
-| Has props                 |                   |                           |                    | ✓                            |
-| Children props            | ✓                 |                           |                    |                              |
-| No state                  |                   |                           |                    | ✓                            |
-| Has state                 | ✓                 |                           |  ✓                 |                              |
-| Has state with useReducer |                   | ✓                         |                    |                              |
-| ReasonReact using ReactJS |                   |                           |                    | ✓                            |
-| ReactJS using ReasonReact |                   |                           |                    | ✓                            |
-| useEffect                 | ✓                 |                           |  ✓                 |                              |
-| Dom attribute             | ✓                 | ✓                         |                    | ✓                            |
-| Styling                   | ✓                 | ✓                         |  ✓                 | ✓                            |
-| React.array               |                   |                           |  ✓                 |                              |
-
-# Bundle for Production
-
-We've included a convenience `UNUSED_webpack.config.js`, in case you want to ship your project to production. You can rename and/or remove that in favor of other bundlers, e.g. Rollup.
-
-We've also provided a barebone `indexProduction.html`, to serve your bundle.
+On running `npm start` compiler error is:
 
 ```sh
-npm install webpack webpack-cli
-# rename file
-mv UNUSED_webpack.config.js webpack.config.js
-# call webpack to bundle for production
-./node_modules/.bin/webpack
-open indexProduction.html
+➜  wonka-not-found npm start
+
+> wonka-not-found@0.1.0 start /Users/prisc_000/Downloads/wonka-not-found
+> bsb -make-world -w -ws _
+
+bsb: no work to do.
+bsb: no work to do.
+File "bsconfig.json", line 1
+Error: package gentype not found or built
+- Did you install it?
+- If you did, did you run `bsb -make-world`?
+>>>> Start compiling
+[18/25] Building src/Blinking...ClickEventDemo-ReasonReactExamples.cmj
+FAILED: src/BlinkingGreeting/WonkaClickEventDemo-ReasonReactExamples.cmj src/BlinkingGreeting/WonkaClickEventDemo-ReasonReactExamples.cmi /Users/prisc_000/Downloads/wonka-not-found/src/BlinkingGreeting/WonkaClickEventDemo.bs.js
+/Users/prisc_000/.fnm/node-versions/v13.3.0/installation/pnpm-global/3/node_modules/.pnpm/registry.npmjs.org/bs-platform/7.0.2-dev.1/node_modules/bs-platform/lib/bsc.exe -nostdlib -bs-package-name reason-react-examples -bs-ns ReasonReactExamples  -bs-package-output commonjs:src/BlinkingGreeting -color always -bs-suffix -I . -I src/ReducerFromReactJSDocs -I src/ReasonUsingJSUsingReason -I src/BlinkingGreeting -I src/FetchedDogPictures -I src -I /Users/prisc_000/Downloads/wonka-not-found/node_modules/reason-react/lib/ocaml -I /Users/prisc_000/Downloads/wonka-not-found/node_modules/bs-webapi/lib/ocaml -I /Users/prisc_000/Downloads/wonka-not-found/node_modules/wonka/lib/ocaml -I /Users/prisc_000/Downloads/wonka-not-found/node_modules/bs-platform/lib/ocaml -w -30-40+6+7+27+32..39+44+45+101 -bs-super-errors -bs-no-version-header -o src/BlinkingGreeting/WonkaClickEventDemo-ReasonReactExamples.cmj src/BlinkingGreeting/WonkaClickEventDemo.reast
+
+  We've found a bug for you!
+  /Users/prisc_000/Downloads/wonka-not-found/src/BlinkingGreeting/WonkaClickEventDemo.re 5:6-10
+
+  3 │    fromEvent(document, 'click').subscribe(() => console.log('Clicked!')
+      ); */
+  4 │ open Webapi.Dom;
+  5 │ open Wonka;
+  6 │ [@react.component]
+  7 │ let make = () => {
+
+  The module or file Wonka can't be found.
+  - If it's a third-party dependency:
+    - Did you list it in bsconfig.json?
+    - Did you run `bsb` instead of `bsb -make-world`
+      (latter builds third-parties)?
+  - Did you include the file's directory in bsconfig.json?
+
+[23/25] Building src/FetchedD...hedDogPictures-ReasonReactExamples.cmj
+FAILED: subcommand failed.
+>>>> Finish compiling(exit: 1)
 ```
-
-# Handle Routing Yourself
-
-To serve the files, this template uses a minimal dependency called `moduleserve`. A URL such as `localhost:8000/scores/john` resolves to the file `scores/john.html`. If you'd like to override this and handle URL resolution yourself, change the `server` command in `package.json` from `moduleserve ./ --port 8000` to `moduleserve ./ --port 8000 --spa` (for "single page application"). This will make `moduleserve` serve the default `index.html` for any URL. Since `index.html` loads `Index.bs.js`, you can grab hold of the URL in the corresponding `Index.re` and do whatever you want.
-
-By the way, ReasonReact comes with a small [router](https://reasonml.github.io/reason-react/docs/en/router) you might be interested in.

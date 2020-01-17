@@ -1,4 +1,4 @@
-# Steps to repoduce error
+# Steps to reproduce error
 
 ## Setup Project
 
